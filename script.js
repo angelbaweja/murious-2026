@@ -13,6 +13,8 @@
   // ── State ──
   const frames = [];
   let loadedCount = 0;
+  let loaderDismissed = false;
+  const pageLoadTime = Date.now();
   let currentFrame = 0;
   let targetFrame = 0;
   let canvas, ctx;
@@ -49,6 +51,16 @@
         img.onload = () => {
           loadedCount++;
           if (loadedCount === 1) drawFrame(0);
+          // Dismiss loader once first batch is ready AND at least 3s have passed
+          if (loadedCount >= 24 && !loaderDismissed) {
+            loaderDismissed = true;
+            const elapsed = Date.now() - pageLoadTime;
+            const remaining = Math.max(0, 3000 - elapsed);
+            setTimeout(() => {
+              const loader = document.getElementById('pageLoader');
+              if (loader) loader.classList.add('hidden');
+            }, remaining);
+          }
         };
         img.onerror = () => {
           // Try alternate delay
