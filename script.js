@@ -54,7 +54,7 @@
 
     // Trail canvas
     trailCanvas = document.getElementById('wandTrail');
-    if(!trailCanvas) return; // safeguard
+    if (!trailCanvas) return; // safeguard
     trailCtx = trailCanvas.getContext('2d');
     resizeTrailCanvas();
 
@@ -82,13 +82,13 @@
 
     // Click — switch to casting wand + spawn sparkles
     document.addEventListener('mousedown', (e) => {
-      if(wand) wand.classList.add('casting');
+      if (wand) wand.classList.add('casting');
       spawnSparkles(e.clientX, e.clientY, sparkleContainer);
       spawnBurst(e.clientX, e.clientY, sparkleContainer);
     });
 
     document.addEventListener('mouseup', () => {
-      if(wand) setTimeout(() => wand.classList.remove('casting'), 150);
+      if (wand) setTimeout(() => wand.classList.remove('casting'), 150);
     });
 
     // Animate wand position smoothly
@@ -97,12 +97,12 @@
       wandX += (mouseX - wandX) * 0.35;
       wandY += (mouseY - wandY) * 0.35;
 
-      if(wand) {
+      if (wand) {
         wand.style.left = wandX + 'px';
         wand.style.top = wandY + 'px';
       }
 
-      if(shadow) {
+      if (shadow) {
         shadow.style.left = (wandX + 12) + 'px';
         shadow.style.top = (wandY + 36) + 'px';
       }
@@ -154,7 +154,7 @@
   }
 
   function spawnSparkles(x, y, container) {
-    if(!container) return;
+    if (!container) return;
     const count = 12 + Math.floor(Math.random() * 8);
     for (let i = 0; i < count; i++) {
       const spark = document.createElement('div');
@@ -185,7 +185,7 @@
   }
 
   function spawnBurst(x, y, container) {
-    if(!container) return;
+    if (!container) return;
     const burst = document.createElement('div');
     burst.classList.add('spell-burst');
     burst.style.left = x + 'px';
@@ -203,7 +203,7 @@
     const links = document.getElementById('navLinks');
     const navAnchors = document.querySelectorAll('.nav-link');
 
-    if(!navbar || !toggle || !links) return;
+    if (!navbar || !toggle || !links) return;
 
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 80);
@@ -257,28 +257,64 @@
   }
 
   // ════════════════════════════════════════════════════
-  // SCHEDULE TABS
+  // SCHEDULE TABS — MARAUDER'S MAP (2D Layout)
   // ════════════════════════════════════════════════════
   function initScheduleTabs() {
     const tabs = document.querySelectorAll('.schedule-tab');
-    const items = document.querySelectorAll('.timeline-item');
+    const items = document.querySelectorAll('.map-loc');
+    const map = document.getElementById('marauderMap');
 
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
         const day = tab.dataset.day;
         tabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
+
+        // Fade out all items
         items.forEach(item => {
-          if (item.dataset.day === day) {
-            item.style.display = '';
-            item.classList.remove('active');
-            setTimeout(() => item.classList.add('active'), 50);
-          } else {
-            item.style.display = 'none';
-          }
+          item.classList.remove('map-revealed');
         });
+
+        // After brief fade, show correct day items with stagger
+        setTimeout(() => {
+          let delay = 0;
+          items.forEach(item => {
+            if (item.dataset.day === day) {
+              item.style.display = '';
+              setTimeout(() => {
+                item.classList.add('map-revealed');
+              }, delay);
+              delay += 120;
+            } else {
+              item.style.display = 'none';
+            }
+          });
+        }, 250);
       });
     });
+
+    // Parchment unfold animation on scroll into view
+    if (map) {
+      const mapObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            map.classList.add('map-visible');
+            // Reveal day 1 items with stagger
+            let delay = 400;
+            items.forEach(item => {
+              if (item.dataset.day === '1') {
+                setTimeout(() => {
+                  item.classList.add('map-revealed');
+                }, delay);
+                delay += 150;
+              }
+            });
+            mapObserver.unobserve(map);
+          }
+        });
+      }, { threshold: 0.1 });
+      mapObserver.observe(map);
+    }
   }
 
   // ════════════════════════════════════════════════════
@@ -361,11 +397,11 @@
   function initScrollBehavior() {
     const castle = document.querySelector('.hero-castle');
     const heroContent = document.querySelector('.hero-content');
-    
+
     const sections = Array.from(document.querySelectorAll('.section'));
     let step = 0;
     let isLocked = false;
-    let scrollLockActive = true;   
+    let scrollLockActive = true;
 
     function lockFor(ms) {
       isLocked = true;
@@ -383,20 +419,20 @@
         castle.style.transform = `translateX(-50%) translateY(-${moveUp}px) scale(2.8)`;
         heroContent.style.filter = 'blur(0px)';
         heroContent.style.opacity = '0';
-        
+
         if (ltree) ltree.style.transform = 'translateX(0)';
         if (rtree) rtree.style.transform = 'translateX(0)';
- 
+
         if (lclif) lclif.style.transform = 'translateX(0)';
         if (rclif) rclif.style.transform = 'translateX(0)';
       } else {
         castle.style.transform = 'translateX(-50%) translateY(0) scale(1)';
         heroContent.style.filter = 'blur(0px)';
         heroContent.style.opacity = '1';
-    
+
         if (ltree) ltree.style.transform = 'translateX(-110%)';
         if (rtree) rtree.style.transform = 'translateX(110%)';
-       
+
         if (lclif) lclif.style.transform = 'translateX(-110%)';
         if (rclif) rclif.style.transform = 'translateX(110%)';
       }
@@ -421,7 +457,7 @@
         lockFor(900);
         scrollLockActive = true;
       } else {
-        const target = sections[1]; 
+        const target = sections[1];
         if (target) {
           const container = target.querySelector('.section-container');
           if (container) {
@@ -438,14 +474,14 @@
     }
 
 
-  // ════════════════════════════════════════════════════
-  // SCROLL LOCK
-  // ════════════════════════════════════════════════════
-    
+    // ════════════════════════════════════════════════════
+    // SCROLL LOCK
+    // ════════════════════════════════════════════════════
+
     window.addEventListener('wheel', (e) => {
-      if (!scrollLockActive) return;   
+      if (!scrollLockActive) return;
       e.preventDefault();
-      if (e.deltaY > 8)       goTo(step + 1);
+      if (e.deltaY > 8) goTo(step + 1);
       else if (e.deltaY < -8) goTo(step - 1);
     }, { passive: false });
 
@@ -469,7 +505,7 @@
     window.addEventListener('touchend', (e) => {
       if (!scrollLockActive) return;
       const delta = touchStartY - e.changedTouches[0].clientY;
-      if (delta > 40)       goTo(step + 1);
+      if (delta > 40) goTo(step + 1);
       else if (delta < -40) goTo(step - 1);
     });
 
@@ -487,7 +523,7 @@
   }
 
 
-  
+
   // ════════════════════════════════════════════════════
   // INIT
   // ════════════════════════════════════════════════════
@@ -497,8 +533,8 @@
     // Hides the loading screen safely after 1.5 seconds 
     // since we removed the 192-frame loading logic.
     setTimeout(() => {
-        const loader = document.getElementById('pageLoader');
-        if (loader) loader.classList.add('hidden');
+      const loader = document.getElementById('pageLoader');
+      if (loader) loader.classList.add('hidden');
     }, 1500);
 
     createParticles();

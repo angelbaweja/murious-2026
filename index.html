@@ -57,7 +57,7 @@
   <main class="content-layer">
 
 
-  <!-- HOME / HERO -->
+    <!-- HOME / HERO -->
     <section id="home" class="section hero-section">
       <div class="hero-content">
         <p class="hero-pre">✦ Explore the Tech Universe ✦</p>
@@ -231,7 +231,7 @@
     </section>
 
 
-    <!-- SCHEDULE -->
+    <!-- SCHEDULE — THE MARAUDER'S MAP -->
     <section id="schedule" class="section">
       <div class="section-container">
         <div class="section-header reveal">
@@ -239,118 +239,184 @@
           <h2 class="section-title">The Grand Schedule</h2>
           <div class="title-ornament"></div>
         </div>
-        <div class="schedule-tabs reveal">
-          <button class="schedule-tab active" data-day="1">Day 1 — Ignition</button>
-          <button class="schedule-tab" data-day="2">Day 2 — The Storm</button>
-          <button class="schedule-tab" data-day="3">Day 3 — The Finale</button>
-        </div>
-        <div class="timeline" id="timeline">
-          <div class="timeline-line"></div>
-          <div class="timeline-item reveal" data-day="1">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content glass-card">
-              <span class="timeline-time">09:00 AM</span>
-              <h3>Opening Ceremony</h3>
-              <p>The grand gates open. Welcome address &amp; inauguration of Murious 19.0.</p>
+
+        <div class="marauder-map reveal" id="marauderMap">
+          <!-- Corner Ornaments -->
+          <div class="map-corner map-corner--tl"></div>
+          <div class="map-corner map-corner--tr"></div>
+          <div class="map-corner map-corner--bl"></div>
+          <div class="map-corner map-corner--br"></div>
+
+          <!-- Compass Rose -->
+          <div class="map-compass"></div>
+
+          <!-- Ink Splatters -->
+          <div class="map-splatter"></div>
+          <div class="map-splatter"></div>
+          <div class="map-splatter"></div>
+
+          <!-- Central Shield Title -->
+          <div class="map-shield">
+            <div class="map-shield-inner">
+              <span class="map-shield-pre">A Murious</span>
+              <h3 class="map-shield-title">Marauder's<br>Schedule</h3>
+              <p class="map-oath">"I solemnly swear that I am up to no good"</p>
             </div>
           </div>
-          <div class="timeline-item reveal" data-day="1">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content glass-card">
-              <span class="timeline-time">10:00 AM</span>
-              <h3>HackVortex — Kickoff</h3>
-              <p>The 18-hour hackathon begins. Problem statements revealed. Teams start building.</p>
+
+          <!-- Day Tabs -->
+          <div class="schedule-tabs">
+            <button class="schedule-tab active" data-day="1">Day 1 — Ignition</button>
+            <button class="schedule-tab" data-day="2">Day 2 — The Storm</button>
+            <button class="schedule-tab" data-day="3">Day 3 — The Finale</button>
+          </div>
+
+          <!-- SVG Dotted Paths Connecting Locations -->
+          <svg class="map-paths" viewBox="0 0 1000 700" preserveAspectRatio="none" fill="none">
+            <!-- Path connecting event locations in a winding route -->
+            <path class="map-route" d="M180 80 C250 80, 300 120, 350 160 S500 200, 600 140 S750 80, 820 120" />
+            <path class="map-route" d="M820 120 C780 180, 700 220, 620 280 S400 340, 300 300 S180 260, 150 320" />
+            <path class="map-route" d="M150 320 C200 380, 300 420, 400 460 S600 520, 700 480 S850 440, 870 500" />
+            <path class="map-route" d="M870 500 C830 560, 720 600, 600 620 S350 640, 250 600 S130 560, 120 580" />
+            <!-- Animated footsteps along paths -->
+            <circle class="map-walker" r="4" fill="#5a3a1a">
+              <animateMotion dur="8s" repeatCount="indefinite"
+                path="M180 80 C250 80, 300 120, 350 160 S500 200, 600 140 S750 80, 820 120 C780 180, 700 220, 620 280 S400 340, 300 300 S180 260, 150 320 C200 380, 300 420, 400 460 S600 520, 700 480 S850 440, 870 500" />
+            </circle>
+            <circle class="map-walker" r="3" fill="#8b6914" opacity="0.5">
+              <animateMotion dur="8s" repeatCount="indefinite" begin="-0.3s"
+                path="M180 80 C250 80, 300 120, 350 160 S500 200, 600 140 S750 80, 820 120 C780 180, 700 220, 620 280 S400 340, 300 300 S180 260, 150 320 C200 380, 300 420, 400 460 S600 520, 700 480 S850 440, 870 500" />
+            </circle>
+          </svg>
+
+          <!-- ═══ MAP LOCATIONS GRID ═══ -->
+          <div class="map-locations" id="mapLocations">
+
+            <!-- ── DAY 1 ── -->
+            <div class="map-loc map-loc--1" data-day="1">
+              <div class="map-marker">01</div>
+              <div class="map-card">
+                <span class="map-card-time">09:00 AM</span>
+                <h4>Opening Ceremony</h4>
+                <p>The grand gates open. Welcome address &amp; inauguration of Murious 19.0.</p>
+              </div>
+            </div>
+
+            <div class="map-loc map-loc--2" data-day="1">
+              <div class="map-marker">02</div>
+              <div class="map-card">
+                <span class="map-card-time">10:00 AM</span>
+                <h4>HackVortex — Kickoff</h4>
+                <p>The 18-hour hackathon begins. Problem statements revealed.</p>
+              </div>
+            </div>
+
+            <div class="map-loc map-loc--3" data-day="1">
+              <div class="map-marker">03</div>
+              <div class="map-card">
+                <span class="map-card-time">11:00 AM</span>
+                <h4>Click-O-Mania &amp; Logo Remix</h4>
+                <p>Photography and logo design competitions kick off.</p>
+              </div>
+            </div>
+
+            <div class="map-loc map-loc--4" data-day="1">
+              <div class="map-marker">04</div>
+              <div class="map-card">
+                <span class="map-card-time">02:00 PM</span>
+                <h4>Digital Scavenger Hunt</h4>
+                <p>Teams race across campus solving tech puzzles.</p>
+              </div>
+            </div>
+
+            <div class="map-loc map-loc--5" data-day="1">
+              <div class="map-marker">05</div>
+              <div class="map-card">
+                <span class="map-card-time">04:00 PM</span>
+                <h4>Code Cleanse</h4>
+                <p>Find the bugs, fix the code, beat the clock.</p>
+              </div>
+            </div>
+
+            <!-- ── DAY 2 ── -->
+            <div class="map-loc map-loc--1" data-day="2" style="display:none;">
+              <div class="map-marker">01</div>
+              <div class="map-card">
+                <span class="map-card-time">09:00 AM</span>
+                <h4>Innovation Derby</h4>
+                <p>Pitch your creative solutions to real-world challenges.</p>
+              </div>
+            </div>
+
+            <div class="map-loc map-loc--2" data-day="2" style="display:none;">
+              <div class="map-marker">02</div>
+              <div class="map-card">
+                <span class="map-card-time">11:00 AM</span>
+                <h4>Blind Coding</h4>
+                <p>Write code without seeing the screen. Pure instinct.</p>
+              </div>
+            </div>
+
+            <div class="map-loc map-loc--3" data-day="2" style="display:none;">
+              <div class="map-marker">03</div>
+              <div class="map-card">
+                <span class="map-card-time">02:00 PM</span>
+                <h4>Reel Rumble &amp; Make It Print</h4>
+                <p>Content creation and merch design run in parallel.</p>
+              </div>
+            </div>
+
+            <div class="map-loc map-loc--4" data-day="2" style="display:none;">
+              <div class="map-marker">04</div>
+              <div class="map-card">
+                <span class="map-card-time">04:00 PM</span>
+                <h4>HackVortex — Final Stretch</h4>
+                <p>18 hours up. Final submissions and demos begin.</p>
+              </div>
+            </div>
+
+            <!-- ── DAY 3 ── -->
+            <div class="map-loc map-loc--1" data-day="3" style="display:none;">
+              <div class="map-marker">01</div>
+              <div class="map-card">
+                <span class="map-card-time">09:00 AM</span>
+                <h4>Guess The Game &amp; QuizE</h4>
+                <p>Gaming quiz and the space/AI/tech trivia showdown.</p>
+              </div>
+            </div>
+
+            <div class="map-loc map-loc--2" data-day="3" style="display:none;">
+              <div class="map-marker">02</div>
+              <div class="map-card">
+                <span class="map-card-time">11:00 AM</span>
+                <h4>Soaring Skies &amp; Tambola</h4>
+                <p>Paper airplane challenge and the game of luck.</p>
+              </div>
+            </div>
+
+            <div class="map-loc map-loc--3" data-day="3" style="display:none;">
+              <div class="map-marker">03</div>
+              <div class="map-card">
+                <span class="map-card-time">03:00 PM</span>
+                <h4>Prize Ceremony</h4>
+                <p>Awards &amp; prizes bestowed upon the victors.</p>
+              </div>
+            </div>
+
+            <div class="map-loc map-loc--4" data-day="3" style="display:none;">
+              <div class="map-marker">04</div>
+              <div class="map-card">
+                <span class="map-card-time">05:00 PM</span>
+                <h4>Grand Closing</h4>
+                <p>Farewell &amp; celebration. Until Murious 20.0! 🚀</p>
+              </div>
             </div>
           </div>
-          <div class="timeline-item reveal" data-day="1">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content glass-card">
-              <span class="timeline-time">11:00 AM</span>
-              <h3>Click-O-Mania &amp; Logo Remix Design</h3>
-              <p>Photography challenge and logo design competition kick off simultaneously.</p>
-            </div>
-          </div>
-          <div class="timeline-item reveal" data-day="1">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content glass-card">
-              <span class="timeline-time">02:00 PM</span>
-              <h3>Digital Scavenger Hunt</h3>
-              <p>Teams race across campus solving tech puzzles and scanning hidden QR codes.</p>
-            </div>
-          </div>
-          <div class="timeline-item reveal" data-day="1">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content glass-card">
-              <span class="timeline-time">04:00 PM</span>
-              <h3>Code Cleanse</h3>
-              <p>The debugging challenge. Find the bugs, fix the code, beat the clock.</p>
-            </div>
-          </div>
-          <!-- Day 2 -->
-          <div class="timeline-item reveal" data-day="2" style="display:none;">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content glass-card">
-              <span class="timeline-time">09:00 AM</span>
-              <h3>Innovation Derby</h3>
-              <p>Pitch your creative solutions to real-world challenges before the jury.</p>
-            </div>
-          </div>
-          <div class="timeline-item reveal" data-day="2" style="display:none;">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content glass-card">
-              <span class="timeline-time">11:00 AM</span>
-              <h3>Blind Coding</h3>
-              <p>Write code without seeing the screen. Pure instinct, pure skill.</p>
-            </div>
-          </div>
-          <div class="timeline-item reveal" data-day="2" style="display:none;">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content glass-card">
-              <span class="timeline-time">02:00 PM</span>
-              <h3>Reel Rumble &amp; Make It Print</h3>
-              <p>Content creation and merch design challenges run in parallel.</p>
-            </div>
-          </div>
-          <div class="timeline-item reveal" data-day="2" style="display:none;">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content glass-card">
-              <span class="timeline-time">04:00 PM</span>
-              <h3>HackVortex — Final Stretch</h3>
-              <p>18 hours up. Final submissions and project demos begin.</p>
-            </div>
-          </div>
-          <!-- Day 3 -->
-          <div class="timeline-item reveal" data-day="3" style="display:none;">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content glass-card">
-              <span class="timeline-time">09:00 AM</span>
-              <h3>Guess The Game &amp; QuizE</h3>
-              <p>Gaming quiz and the space/AI/tech trivia showdown.</p>
-            </div>
-          </div>
-          <div class="timeline-item reveal" data-day="3" style="display:none;">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content glass-card">
-              <span class="timeline-time">11:00 AM</span>
-              <h3>Faculty Events — Soaring Skies &amp; Tambola</h3>
-              <p>Paper airplane challenge and the beloved game of luck and anticipation.</p>
-            </div>
-          </div>
-          <div class="timeline-item reveal" data-day="3" style="display:none;">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content glass-card">
-              <span class="timeline-time">03:00 PM</span>
-              <h3>Prize Ceremony</h3>
-              <p>Awards, recognition &amp; prizes bestowed upon the victors of Murious 19.0.</p>
-            </div>
-          </div>
-          <div class="timeline-item reveal" data-day="3" style="display:none;">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content glass-card">
-              <span class="timeline-time">05:00 PM</span>
-              <h3>Grand Closing</h3>
-              <p>Farewell, networking &amp; celebration. Until Murious 20.0, explorers! 🚀</p>
-            </div>
+
+          <!-- Map Footer -->
+          <div class="map-footer">
+            <div class="map-footer-line"></div>
+            <p class="map-managed">Mischief Managed</p>
           </div>
         </div>
       </div>
@@ -423,8 +489,8 @@
         <div class="sponsors-tier reveal">
           <h3 class="tier-title">🌟 Event Sponsors</h3>
           <div class="sponsors-carousel">
-    <div class="sponsors-track">
-            <!-- <div class="sponsor-card glass-card">
+            <div class="sponsors-track">
+              <!-- <div class="sponsor-card glass-card">
               <div class="sponsor-glow"></div>
               <img src="https://murious.jyc.co.in/assets/lazizpizza-CYQ73uPV.jpeg" alt="Laziz Pizza"
                 class="sponsor-img">
@@ -445,171 +511,171 @@
               <img src="https://murious.jyc.co.in/assets/cafesserie-BHt08vgE.jpeg" alt="Cafesserie" class="sponsor-img">
               <span>Cafesserie</span>    -->
               <div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="redbull-logo.svg" alt="Red Bull">
-    <span>Red Bull</span>
-</div>
+                <div class="sponsor-glow "></div>
+                <img src="redbull-logo.svg" alt="Red Bull">
+                <span>Red Bull</span>
+              </div>
 
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="5ae22ce233b73fa43b1a892e.png" alt="NESCAFE">
-    <span>Nescafe</span>
-</div>
-<!-- <div class="sponsor-card glass-card"></div> -->
- <div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="139-1393337_hallmark-logo-png.png" alt="Government of himachal pradesh">
-    <span>Himachal Pradesh government</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="b0feaa3f35f85de83f6b1d868ed010f9.w1200.h1200.png" alt="">
-    <span>Functional Superjuice</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="Bonn_Group_of_Industries.svg.png" alt="bonn">
-    <span>Bonn</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="channels4_profile.jpg.jpeg" alt="">
-    <span>Infigon</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="EasyShiksha-Logo.png" alt="">
-    <span>Easy Shiksha</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="file_00000000e5e071fd8662883918afebd5.png" alt="">
-    <span>The Souled Store</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="garuda_logo-480x480.png" alt="">
-    <span>Garuda</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="y7z0rj11ztjeszacvnq2nyxif7jr.png" alt="taskde">
-    <span>Taskade</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="Reliance_Jio_Logo_(October_2015).svg.png" alt="jio">
-    <span>Jio</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="NicePng_blocks-png_1174727.png" alt="coding blocks">
-    <span>Coding blocks</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="logo.svg" alt="minchys">
-    <span>Minchy's</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="GeeksForGeeks_logo.png" alt="geeks for geeks">
-    <span>Geeks for Geeks</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="Hyundai2.png" alt="hyundai">
-    <span>Hyundai</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="cafesserie-logo-A1aB8q2pyxUE1PzZ.jpeg" alt="caffesrie">
-    <span>Cafesserie</span>
-</div>
-           <div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="redbull-logo.svg" alt="Red Bull">
-    <span>Red Bull</span>
-</div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="5ae22ce233b73fa43b1a892e.png" alt="NESCAFE">
+                <span>Nescafe</span>
+              </div>
+              <!-- <div class="sponsor-card glass-card"></div> -->
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="139-1393337_hallmark-logo-png.png" alt="Government of himachal pradesh">
+                <span>Himachal Pradesh government</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="b0feaa3f35f85de83f6b1d868ed010f9.w1200.h1200.png" alt="">
+                <span>Functional Superjuice</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="Bonn_Group_of_Industries.svg.png" alt="bonn">
+                <span>Bonn</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="channels4_profile.jpg.jpeg" alt="">
+                <span>Infigon</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="EasyShiksha-Logo.png" alt="">
+                <span>Easy Shiksha</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="file_00000000e5e071fd8662883918afebd5.png" alt="">
+                <span>The Souled Store</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="garuda_logo-480x480.png" alt="">
+                <span>Garuda</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="y7z0rj11ztjeszacvnq2nyxif7jr.png" alt="taskde">
+                <span>Taskade</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="Reliance_Jio_Logo_(October_2015).svg.png" alt="jio">
+                <span>Jio</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="NicePng_blocks-png_1174727.png" alt="coding blocks">
+                <span>Coding blocks</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="logo.svg" alt="minchys">
+                <span>Minchy's</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="GeeksForGeeks_logo.png" alt="geeks for geeks">
+                <span>Geeks for Geeks</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="Hyundai2.png" alt="hyundai">
+                <span>Hyundai</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="cafesserie-logo-A1aB8q2pyxUE1PzZ.jpeg" alt="caffesrie">
+                <span>Cafesserie</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="redbull-logo.svg" alt="Red Bull">
+                <span>Red Bull</span>
+              </div>
 
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="5ae22ce233b73fa43b1a892e.png" alt="NESCAFE">
-    <span>Nescafe</span>
-</div>
-<!-- <div class="sponsor-card glass-card"></div> -->
- <div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="139-1393337_hallmark-logo-png.png" alt="Government of himachal pradesh">
-    <span>Himachal Pradesh government</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="b0feaa3f35f85de83f6b1d868ed010f9.w1200.h1200.png" alt="">
-    <span>Functional Superjuice</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="Bonn_Group_of_Industries.svg.png" alt="bonn">
-    <span>Bonn</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="channels4_profile.jpg.jpeg" alt="">
-    <span>Infigon</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="EasyShiksha-Logo.png" alt="">
-    <span>Easy Shiksha</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="file_00000000e5e071fd8662883918afebd5.png" alt="">
-    <span>The Souled Store</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="garuda_logo-480x480.png" alt="">
-    <span>Garuda</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="y7z0rj11ztjeszacvnq2nyxif7jr.png" alt="taskde">
-    <span>Taskade</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="Reliance_Jio_Logo_(October_2015).svg.png" alt="jio">
-    <span>Jio</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="NicePng_blocks-png_1174727.png" alt="coding blocks">
-    <span>Coding blocks</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="logo.svg" alt="minchys">
-    <span>Minchy's</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="GeeksForGeeks_logo.png" alt="geeks for geeks">
-    <span>Geeks for Geeks</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="Hyundai2.png" alt="hyundai">
-    <span>Hyundai</span>
-</div>
-<div class="sponsor-card glass-card">
-    <div class="sponsor-glow "></div>
-    <img src="cafesserie-logo-A1aB8q2pyxUE1PzZ.jpeg" alt="caffesrie">
-    <span>Cafesserie</span>
-</div>
-    </div>
-</div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="5ae22ce233b73fa43b1a892e.png" alt="NESCAFE">
+                <span>Nescafe</span>
+              </div>
+              <!-- <div class="sponsor-card glass-card"></div> -->
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="139-1393337_hallmark-logo-png.png" alt="Government of himachal pradesh">
+                <span>Himachal Pradesh government</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="b0feaa3f35f85de83f6b1d868ed010f9.w1200.h1200.png" alt="">
+                <span>Functional Superjuice</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="Bonn_Group_of_Industries.svg.png" alt="bonn">
+                <span>Bonn</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="channels4_profile.jpg.jpeg" alt="">
+                <span>Infigon</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="EasyShiksha-Logo.png" alt="">
+                <span>Easy Shiksha</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="file_00000000e5e071fd8662883918afebd5.png" alt="">
+                <span>The Souled Store</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="garuda_logo-480x480.png" alt="">
+                <span>Garuda</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="y7z0rj11ztjeszacvnq2nyxif7jr.png" alt="taskde">
+                <span>Taskade</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="Reliance_Jio_Logo_(October_2015).svg.png" alt="jio">
+                <span>Jio</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="NicePng_blocks-png_1174727.png" alt="coding blocks">
+                <span>Coding blocks</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="logo.svg" alt="minchys">
+                <span>Minchy's</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="GeeksForGeeks_logo.png" alt="geeks for geeks">
+                <span>Geeks for Geeks</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="Hyundai2.png" alt="hyundai">
+                <span>Hyundai</span>
+              </div>
+              <div class="sponsor-card glass-card">
+                <div class="sponsor-glow "></div>
+                <img src="cafesserie-logo-A1aB8q2pyxUE1PzZ.jpeg" alt="caffesrie">
+                <span>Cafesserie</span>
+              </div>
+            </div>
+          </div>
     </section>
 
 
@@ -720,4 +786,5 @@
   </main>
   <script src="script.js"></script>
 </body>
+
 </html>
