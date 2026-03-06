@@ -2081,6 +2081,36 @@ img {
   .hero-year {
     letter-spacing: 10px;
   }
+  /* Castle positioning for tablet */
+  .hero-castle {
+    width: clamp(180px, 50vw, 400px);
+    bottom: -85vh;
+  }
+
+  /* Trees positioning for tablet */
+  .hero-tree {
+    bottom: -5vh;
+  }
+
+  .hero-tree-left,
+  .hero-tree-right {
+    width: 25vw;
+    max-width: 200px;
+    display: none;
+  }
+
+  /* Cliffs (rocks) positioning for tablet */
+  .hero-clif {
+    bottom: -5vh;
+  }
+
+  .hero-clif-left {
+    width: 28vw;
+  }
+
+  .hero-clif-right {
+    width: 32vw;
+  }
 
   /* Marauder's Map responsive — 2D grid */
   .marauder-map {
@@ -2152,6 +2182,44 @@ img {
   .hero-pre {
     font-size: 0.7rem;
     letter-spacing: 3px;
+  }
+  
+  /* Tagline Readability Correction */
+
+  .hero-tagline{
+    color: #F2EAD3;
+  }
+
+  /* Castle positioning for mobile */
+  .hero-castle {
+    width: clamp(160px, 100vw, 320px);
+    bottom: -80vh;
+  }
+
+  /* Trees positioning for mobile */
+  .hero-tree {
+    bottom: -3vh;
+  }
+
+  .hero-tree-left,
+  .hero-tree-right {
+    width: 50vw;
+    max-width: 400px;
+    display: none;
+    
+  }
+
+  /* Cliffs (rocks) positioning for mobile */
+  .hero-clif {
+    bottom: -3vh;
+  }
+
+  .hero-clif-left {
+    width: 40vw;
+  }
+
+  .hero-clif-right {
+    width: 45vw;
   }
 
   .section-container {
