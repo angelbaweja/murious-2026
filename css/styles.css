@@ -5,7 +5,7 @@
 
 @font-face {
   font-family: 'HarryPotter';
-  src: url('../assets/fonts/harry_p/HARRYP__.TTF') format('truetype');
+  src: url('harry_p/HARRYP__.TTF') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -89,18 +89,18 @@ html::-webkit-scrollbar {
 
 html::-webkit-scrollbar-track {
   background: var(--bg-dark);
-
+  
 }
 
 html::-webkit-scrollbar-thumb {
   background: var(--gold);
   border-radius: 3px;
-
+  
 }
 
 body {
   font-family: var(--font-body);
-  background: url('../assets/images/Background.png') center center / cover no-repeat fixed, #050510;
+  background: url('Background.png') center center / cover no-repeat fixed, #050510;
   color: var(--text);
   line-height: 1.7;
   overflow-x: hidden;
@@ -250,7 +250,7 @@ img {
   left: 0;
   width: 100%;
   height: 100%;
-  background: url('../assets/images/Background.png') center center / cover no-repeat, radial-gradient(ellipse at 50% 30%, #1a1a3a 0%, #0a0a15 60%, #050510 100%);
+  background: url('Background.png') center center / cover no-repeat, radial-gradient(ellipse at 50% 30%, #1a1a3a 0%, #0a0a15 60%, #050510 100%);
   z-index: 0;
 }
 
@@ -392,14 +392,14 @@ img {
 }
 
 .hero-castle {
-  width: clamp(220px, 55vw, 480px);
-  position: absolute;
-  left: 50%;
-  bottom: -95vh;
+  width:clamp(220px, 55vw, 480px);
+  position:absolute;
+  left:50%;
+  bottom:-95vh;
   transform: translateX(-50%);
-  transform-origin: center bottom;
-  z-index: 6;
-  pointer-events: none;
+  transform-origin:center bottom;
+  z-index:6;
+  pointer-events:none;
   will-change: transform;
   transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
@@ -409,10 +409,6 @@ img {
 .hero-tree {
   position: absolute;
   bottom: -8vh;
-  height: calc(100vh + 8vh);
-  width: auto;
-  object-fit: cover;
-  object-position: bottom;
   z-index: 10;
   pointer-events: none;
   will-change: transform;
@@ -861,542 +857,101 @@ img {
 }
 
 /* ════════════════════════════════════════════════════
-   MARAUDER'S MAP — 2D SCATTERED LAYOUT
+   SCHEDULE / TIMELINE
    ════════════════════════════════════════════════════ */
-
-@font-face {
-  font-family: 'HarryP';
-  src: url('../assets/fonts/harry_p/HARRYP__.TTF') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* ── Parchment Container ── */
-.marauder-map {
-  position: relative;
-  background:
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E"),
-    linear-gradient(160deg,
-      #d4b896 0%, #c9a87c 15%, #dcc8a0 30%,
-      #c4a06a 50%, #d8c09c 70%, #c9a87c 85%, #bfa070 100%);
-  border: 3px solid #8b6914;
-  border-radius: 6px;
-  padding: 50px 30px 40px;
-  margin: 0 auto;
-  max-width: 1100px;
-  box-shadow:
-    inset 0 0 80px rgba(139, 105, 20, 0.25),
-    0 10px 60px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(139, 105, 20, 0.3);
-  overflow: hidden;
-}
-
-.marauder-map::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, transparent 40%, rgba(101, 67, 33, 0.3) 100%);
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* ── Corner Ornaments ── */
-.map-corner {
-  position: absolute;
-  width: 70px;
-  height: 70px;
-  z-index: 2;
-  opacity: 0.6;
-}
-
-.map-corner::before,
-.map-corner::after {
-  content: '';
-  position: absolute;
-  background: #5a3a1a;
-}
-
-.map-corner--tl {
-  top: 12px;
-  left: 12px;
-}
-
-.map-corner--tl::before {
-  top: 0;
-  left: 0;
-  width: 40px;
-  height: 2px;
-}
-
-.map-corner--tl::after {
-  top: 0;
-  left: 0;
-  width: 2px;
-  height: 40px;
-}
-
-.map-corner--tr {
-  top: 12px;
-  right: 12px;
-}
-
-.map-corner--tr::before {
-  top: 0;
-  right: 0;
-  width: 40px;
-  height: 2px;
-}
-
-.map-corner--tr::after {
-  top: 0;
-  right: 0;
-  width: 2px;
-  height: 40px;
-}
-
-.map-corner--bl {
-  bottom: 12px;
-  left: 12px;
-}
-
-.map-corner--bl::before {
-  bottom: 0;
-  left: 0;
-  width: 40px;
-  height: 2px;
-}
-
-.map-corner--bl::after {
-  bottom: 0;
-  left: 0;
-  width: 2px;
-  height: 40px;
-}
-
-.map-corner--br {
-  bottom: 12px;
-  right: 12px;
-}
-
-.map-corner--br::before {
-  bottom: 0;
-  right: 0;
-  width: 40px;
-  height: 2px;
-}
-
-.map-corner--br::after {
-  bottom: 0;
-  right: 0;
-  width: 2px;
-  height: 40px;
-}
-
-/* ── Compass Rose ── */
-.map-compass {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  width: 55px;
-  height: 55px;
-  z-index: 2;
-  opacity: 0.35;
-}
-
-.map-compass::before {
-  content: '✦';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 28px;
-  color: #5a3a1a;
-}
-
-.map-compass::after {
-  content: 'N';
-  position: absolute;
-  top: -2px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'HarryP', serif;
-  font-size: 14px;
-  color: #5a3a1a;
-}
-
-/* ── Central Shield Title ── */
-.map-shield {
-  text-align: center;
-  margin: 0 auto 10px;
-  position: relative;
-  z-index: 5;
-  max-width: 280px;
-}
-
-.map-shield-inner {
-  background: linear-gradient(180deg, #7a1a1a 0%, #5c1010 100%);
-  border: 3px solid #8b6914;
-  border-radius: 8px 8px 50% 50% / 8px 8px 20% 20%;
-  padding: 20px 24px 28px;
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  position: relative;
-}
-
-.map-shield-inner::before {
-  content: '';
-  position: absolute;
-  inset: 4px;
-  border: 1px solid rgba(212, 168, 83, 0.3);
-  border-radius: 4px 4px 50% 50% / 4px 4px 18% 18%;
-  pointer-events: none;
-}
-
-.map-shield-pre {
-  font-family: 'Cinzel', serif;
-  font-size: 0.7rem;
-  letter-spacing: 3px;
-  color: rgba(240, 212, 138, 0.7);
-  text-transform: uppercase;
-  display: block;
-  margin-bottom: 4px;
-}
-
-.map-shield-title {
-  font-family: 'HarryP', 'Cinzel Decorative', serif;
-  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
-  color: #f0d48a;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
-  letter-spacing: 2px;
-  line-height: 1.15;
-  margin-bottom: 8px;
-}
-
-.map-oath {
-  font-family: 'Cinzel', serif;
-  font-size: 0.6rem;
-  color: rgba(240, 212, 138, 0.6);
-  letter-spacing: 2px;
-  font-style: italic;
-}
-
-/* ── Parchment Tabs ── */
 .schedule-tabs {
   display: flex;
   justify-content: center;
-  gap: 14px;
-  margin-bottom: 20px;
+  gap: 12px;
+  margin-bottom: 60px;
   flex-wrap: wrap;
-  position: relative;
-  z-index: 5;
 }
 
 .schedule-tab {
-  font-family: 'Cinzel', serif;
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
   letter-spacing: 1.5px;
-  padding: 8px 20px;
-  border: 1.5px solid #8b6914;
-  border-radius: 4px;
-  background: rgba(201, 168, 124, 0.4);
-  color: #5a3a1a;
-  cursor: pointer;
-  transition: all 0.35s ease;
-  position: relative;
-  text-transform: uppercase;
+  padding: 12px 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: rgba(10, 10, 20, 0.4);
+  backdrop-filter: blur(10px);
+  color: var(--text-muted);
+  cursor: none;
+  transition: var(--transition);
 }
 
 .schedule-tab:hover {
-  background: rgba(139, 105, 20, 0.2);
-  box-shadow: 0 0 12px rgba(139, 105, 20, 0.25);
+  color: var(--gold);
+  border-color: var(--gold);
 }
 
 .schedule-tab.active {
-  background: linear-gradient(135deg, #8b6914, #a67c1e);
-  color: #f5e6c8;
-  border-color: #6b4e12;
+  background: linear-gradient(135deg, var(--gold), #b8922e);
+  color: var(--bg-dark);
+  border-color: var(--gold);
   font-weight: 700;
-  box-shadow: 0 3px 12px rgba(139, 105, 20, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
-/* ── SVG Dotted Paths ── */
-.map-paths {
+.timeline {
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto;
+  padding-left: 40px;
+}
+
+.timeline-line {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.map-route {
-  stroke: #5a3a1a;
-  stroke-width: 2.5;
-  stroke-dasharray: 8 6;
-  stroke-linecap: round;
-  fill: none;
+  left: 12px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--gold), var(--purple), var(--gold));
   opacity: 0.4;
 }
 
-.map-walker {
-  opacity: 0.6;
-}
-
-/* ── Map Locations Grid (2D scattered) ── */
-.map-locations {
+.timeline-item {
   position: relative;
-  z-index: 3;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 28px 40px;
-  padding: 10px 0;
-  min-height: 200px;
+  margin-bottom: 40px;
 }
 
-/* ── Location Item ── */
-.map-loc {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  opacity: 0;
-  transform: scale(0.9);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.map-loc.map-revealed {
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* Zigzag offset to look scattered */
-.map-loc--1 {
-  justify-self: start;
-}
-
-.map-loc--2 {
-  justify-self: end;
-}
-
-.map-loc--3 {
-  justify-self: start;
-  margin-left: 5%;
-}
-
-.map-loc--4 {
-  justify-self: end;
-  margin-right: 5%;
-}
-
-.map-loc--5 {
-  justify-self: center;
-  grid-column: 1 / -1;
-}
-
-/* ── Numbered Shield Marker ── */
-.map-marker {
-  flex-shrink: 0;
-  width: 42px;
-  height: 42px;
-  background: linear-gradient(180deg, #c0392b 0%, #8b1a1a 100%);
-  border: 2.5px solid #8b6914;
-  border-radius: 50% 50% 50% 0;
-  transform: rotate(-45deg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Cinzel', serif;
-  font-size: 0.75rem;
-  font-weight: 800;
-  color: #f0d48a;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-  position: relative;
-  margin-top: 4px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.map-marker span,
-.map-marker {
-  line-height: 1;
-}
-
-/* Un-rotate the text inside */
-.map-marker::after {
-  content: attr(data-num);
-}
-
-.map-loc:hover .map-marker {
-  transform: rotate(-45deg) scale(1.15);
-  box-shadow: 0 4px 16px rgba(139, 26, 26, 0.5);
-}
-
-/* ── Gold Banner Event Card ── */
-.map-card {
-  flex: 1;
-  background: linear-gradient(180deg,
-      rgba(196, 160, 106, 0.6) 0%,
-      rgba(180, 146, 90, 0.5) 100%);
-  border: 1.5px solid #8b6914;
-  border-radius: 4px;
-  padding: 14px 18px;
-  position: relative;
-  transition: all 0.3s ease;
-  max-width: 380px;
-}
-
-/* Left gold accent (like a banner ribbon) */
-.map-card::before {
-  content: '';
+.timeline-dot {
   position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: linear-gradient(to bottom, #d4a853, #8b6914);
-  border-radius: 4px 0 0 4px;
-}
-
-.map-card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(212, 168, 83, 0.5), transparent);
-}
-
-.map-loc:hover .map-card {
-  background: linear-gradient(180deg,
-      rgba(196, 160, 106, 0.75) 0%,
-      rgba(180, 146, 90, 0.65) 100%);
-  box-shadow: 0 4px 16px rgba(139, 105, 20, 0.25);
-  transform: translateY(-2px);
-}
-
-.map-card-time {
-  font-family: 'Cinzel', serif;
-  font-size: 0.68rem;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: #8b6914;
-  display: block;
-  margin-bottom: 4px;
-  font-weight: 700;
-}
-
-.map-card h4 {
-  font-family: 'HarryP', 'Cinzel Decorative', serif;
-  font-size: 1.15rem;
-  color: #3b2510;
-  margin-bottom: 4px;
-  letter-spacing: 1px;
-}
-
-.map-card p {
-  font-family: 'Raleway', sans-serif;
-  font-size: 0.82rem;
-  color: #5a3a1a;
-  line-height: 1.5;
-  margin: 0;
-}
-
-/* ── Mischief Managed Footer ── */
-.map-footer {
-  text-align: center;
-  margin-top: 30px;
-  position: relative;
-  z-index: 5;
-}
-
-.map-footer-line {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 10px;
-}
-
-.map-footer-line::before,
-.map-footer-line::after {
-  content: '';
-  width: 60px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #8b6914, transparent);
-}
-
-.map-managed {
-  font-family: 'HarryP', 'Cinzel Decorative', serif;
-  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-  color: #3b2510;
-  letter-spacing: 2px;
-  opacity: 0.8;
-}
-
-/* ── Section Title Override ── */
-#schedule .section-header {
-  margin-bottom: 30px;
-}
-
-#schedule .section-title {
-  font-family: 'HarryP', 'Cinzel Decorative', serif;
-  color: var(--gold-light);
-  text-shadow: 0 0 20px rgba(212, 168, 83, 0.3);
-}
-
-/* ── Parchment unfold animation ── */
-.marauder-map {
-  animation: parchmentUnfold 0.8s ease-out both;
-  animation-play-state: paused;
-}
-
-.marauder-map.map-visible {
-  animation-play-state: running;
-}
-
-@keyframes parchmentUnfold {
-  0% {
-    opacity: 0;
-    transform: scale(0.95) rotateX(3deg);
-  }
-
-  100% {
-    opacity: 1;
-    transform: scale(1) rotateX(0deg);
-  }
-}
-
-/* ── Ink Splatters ── */
-.map-splatter {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: rgba(90, 58, 26, 0.15);
+  left: -34px;
+  top: 6px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-  z-index: 1;
+  background: var(--gold);
+  border: 3px solid rgba(10, 10, 15, 0.8);
+  box-shadow: 0 0 15px var(--gold-glow);
+  z-index: 2;
 }
 
-.map-splatter:nth-child(1) {
-  top: 15%;
-  right: 18%;
-  width: 4px;
-  height: 4px;
+.timeline-content {
+  padding: 24px 28px;
 }
 
-.map-splatter:nth-child(2) {
-  top: 40%;
-  left: 8%;
-  width: 8px;
-  height: 8px;
-  opacity: 0.08;
+.timeline-time {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 6px;
 }
 
-.map-splatter:nth-child(3) {
-  bottom: 25%;
-  right: 10%;
-  width: 5px;
-  height: 5px;
+.timeline-content h3 {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--text-heading);
+  margin-bottom: 6px;
+}
+
+.timeline-content p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
 }
 
 /* ════════════════════════════════════════════════════
@@ -1542,7 +1097,7 @@ img {
 /* .sponsor-card {
   padding: 36px 48px;
   position: relative; */
-/* .sponsor-card {
+  /* .sponsor-card {
   padding: 20px 30px;
   position: relative;
   min-width: 140px;
@@ -1553,7 +1108,6 @@ img {
   padding: 48px 80px;
   font-size: 1.4rem;
 }
-
 .sponsor-card img {
   width: 100px;
   height: auto;
@@ -1561,7 +1115,6 @@ img {
   object-fit: contain;
   display: block;
 }
-
 /* === CLEAN SPONSOR CAROUSEL === */
 
 .sponsors-carousel {
@@ -1574,8 +1127,7 @@ img {
 .sponsors-track {
   display: flex;
   gap: 30px;
-  width: max-content;
-  /* VERY IMPORTANT */
+  width: max-content;   /* VERY IMPORTANT */
   animation: scrollSponsors 25s linear infinite;
   will-change: transform;
 }
@@ -1591,11 +1143,9 @@ img {
   justify-content: center;
   align-items: center;
 } */
-.sponsor-card {
-  width: 220px;
-  /* fixed width */
-  height: 180px;
-  /* fixed height */
+ .sponsor-card {
+  width: 220px;          /* fixed width */
+  height: 180px;         /* fixed height */
   flex: 0 0 auto;
   display: flex;
   flex-direction: column;
@@ -1610,7 +1160,7 @@ img {
   max-height: 70px;
   object-fit: contain;
 } */
-.sponsor-card img {
+ .sponsor-card img {
   max-width: 120px;
   max-height: 70px;
   object-fit: contain;
@@ -1621,7 +1171,6 @@ img {
   from {
     transform: translateX(0);
   }
-
   to {
     transform: translateX(-50%);
   }
@@ -2082,51 +1631,6 @@ img {
     letter-spacing: 10px;
   }
 
-  /* Marauder's Map responsive — 2D grid */
-  .marauder-map {
-    padding: 40px 18px 35px;
-    margin: 0 -10px;
-  }
-
-  .map-shield-title {
-    font-size: clamp(1.4rem, 4vw, 1.8rem);
-  }
-
-  .map-corner {
-    width: 45px;
-    height: 45px;
-  }
-
-  .map-corner::before {
-    width: 25px !important;
-  }
-
-  .map-corner::after {
-    height: 25px !important;
-  }
-
-  .map-compass {
-    display: none;
-  }
-
-  .map-locations {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .map-loc--1,
-  .map-loc--2,
-  .map-loc--3,
-  .map-loc--4,
-  .map-loc--5 {
-    justify-self: stretch;
-    margin: 0;
-  }
-
-  .map-paths {
-    display: none;
-  }
-
   .schedule-tabs {
     flex-direction: column;
     align-items: center;
@@ -2166,37 +1670,4 @@ img {
     flex-direction: column;
     align-items: center;
   }
-
-  /* Marauder's Map — small mobile */
-  .marauder-map {
-    padding: 30px 12px 25px;
-  }
-
-  .map-shield-title {
-    font-size: 1.3rem;
-  }
-
-  .map-shield-inner {
-    padding: 14px 16px 20px;
-  }
-
-  .map-oath {
-    font-size: 0.55rem;
-    letter-spacing: 1.5px;
-  }
-
-  .map-card {
-    padding: 12px 14px;
-  }
-
-  .map-marker {
-    width: 36px;
-    height: 36px;
-    font-size: 0.65rem;
-  }
-
-  .map-managed {
-    font-size: 1.1rem;
-  }
 }
-
