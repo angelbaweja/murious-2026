@@ -47,7 +47,7 @@
         <li><a href="#about" class="nav-link">About</a></li>
         <li><a href="#events" class="nav-link">Events</a></li>
         <li><a href="#schedule" class="nav-link">Schedule</a></li>
-        <li><a href="https://forms.gle/axCYgx6kRqmrD6RG7" class="nav-link">Register</a></li>
+        <li><a href="#register" class="nav-link">Register</a></li>
         <li><a href="#sponsors" class="nav-link">Sponsors</a></li>
         <li><a href="#team" class="nav-link">Team</a></li>
         <li><a href="#contact" class="nav-link">Contact</a></li>
@@ -66,7 +66,7 @@
         <h1 class="hero-title">MURIOUS<span class="hero-year">20.0</span></h1>
         <p class="hero-tagline">The Interstellar Journey of Tech, Innovation &amp; Beyond 🌌</p>
         <div class="hero-cta-group">
-          <a href="https://forms.gle/axCYgx6kRqmrD6RG7" target="_blank" class="btn btn-primary">Register Now</a>
+          <a href="#register" class="btn btn-primary">Register Now</a>
           <a href="#events" class="btn btn-outline">Explore Events</a>
         </div>
         <div class="scroll-indicator">
@@ -125,7 +125,8 @@
             <div class="evt-text-panel" id="evtTextPanel">
               <span class="evt-text-type" id="evtTextType">Featured Event</span>
               <h2 id="evtTextTitle">THE TRIWIZARD QUEST</h2>
-              <p id="evtTextDesc">The Triwizard Quest is a treasure hunt where wit, courage, and teamwork decide the ultimate champions.</p>
+              <p id="evtTextDesc">The Triwizard Quest is a treasure hunt where wit, courage, and teamwork decide the
+                ultimate champions.</p>
             </div>
 
             <div class="evt-card-counter">
@@ -353,26 +354,7 @@
           <h3 class="tier-title">🌟 Event Sponsors</h3>
           <div class="sponsors-carousel">
             <div class="sponsors-track">
-              <!-- <div class="sponsor-card glass-card">
-              <div class="sponsor-glow"></div>
-              <img src="https://murious.jyc.co.in/assets/lazizpizza-CYQ73uPV.jpeg" alt="Laziz Pizza"
-                class="sponsor-img">
-              <span>Laziz Pizza</span>
-            </div>
-            <div class="sponsor-card glass-card">
-              <div class="sponsor-glow"></div>
-              <img src="https://murious.jyc.co.in/assets/hopstay-BpjZGJk_.jpeg" alt="Hopstay" class="sponsor-img">
-              <span>Hopstay</span>
-            </div>
-            <div class="sponsor-card glass-card">
-              <div class="sponsor-glow"></div>
-              <img src="https://murious.jyc.co.in/assets/amul-BEqZfMeO.webp" alt="Amul" class="sponsor-img">+
-              <span>Amul</span>
-            </div>
-            <div class="sponsor-card glass-card">
-              <div class="sponsor-glow"></div>
-              <img src="https://murious.jyc.co.in/assets/cafesserie-BHt08vgE.jpeg" alt="Cafesserie" class="sponsor-img">
-              <span>Cafesserie</span>    -->
+             
               <div class="sponsor-card glass-card">
                 <div class="sponsor-glow "></div>
                 <img src="assets/images/redbull.webp" alt="Red Bull">
@@ -597,38 +579,19 @@
 
 
             <div class="team-card glass-card reveal">
-<<<<<<< HEAD
               <img src="images/gaurav.png">
-=======
-              <img src="images/tanmay.webp" alt="Dr. Tanmay Gupta">  
->>>>>>> upstream/main
               <div class="team-info">
                 <h4>Gaurav Negi</h4>
                 <span>Coordinator</span>
 
                 <div class="team-socials">
-                  <a href="https://www.linkedin.com/in/gaurav-negi-a6804b1a2?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank"><i class="fab fa-linkedin"></i></a>
-                </div>
-              </div>
-            </div>
-
-<<<<<<< HEAD
-=======
-
-            <div class="team-card glass-card reveal">
-              <img src="images/alok.webp" alt="Dr. Alok Kumar">
-              <div class="team-info">
-                <h4>Dr. Alok Kumar</h4>
-                <span>Coordinator</span>
-
-                <div class="team-socials">
-                  <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+                  <a href="https://www.linkedin.com/in/gaurav-negi-a6804b1a2?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                    target="_blank"><i class="fab fa-linkedin"></i></a>
                 </div>
               </div>
             </div>
 
 
->>>>>>> upstream/main
             <div class="team-card glass-card reveal">
               <img src="images/aayush.webp" alt="Prof. Aayush Sharma">
               <div class="team-info">
@@ -852,10 +815,89 @@
 
         </div>
       </section>
-      </section>
+    </section>
 
 
-    
+    <!-- REGISTER -->
+    <section id="register" class="section">
+      <div class="section-container">
+        <div class="section-header reveal">
+          <span class="section-tag">✦ Join Us</span>
+          <h2 class="section-title">Register Now</h2>
+          <div class="title-ornament"></div>
+        </div>
+
+        <div class="register-content reveal">
+          <form class="register-form glass-card" id="registerForm" novalidate>
+            <!-- Loading Overlay -->
+            <div class="reg-loading-overlay" id="regLoading">
+              <div class="reg-spinner"></div>
+              <span>Processing Payment...</span>
+            </div>
+
+            <div class="form-group">
+              <label for="regName">Full Name</label>
+              <input type="text" id="regName" placeholder="Your full name" required>
+            </div>
+
+            <div class="form-group">
+              <label for="regEmail">Email Address</label>
+              <input type="email" id="regEmail" placeholder="you@example.com" required>
+            </div>
+
+            <div class="form-group">
+              <label for="regPhone">Phone Number</label>
+              <input type="tel" id="regPhone" placeholder="10-digit phone number" required>
+            </div>
+
+            <div class="form-group">
+              <label for="regCollege">College Name</label>
+              <input type="text" id="regCollege" placeholder="Your college / university" required>
+            </div>
+
+            <div class="form-group">
+              <label for="regEvent">Select Event</label>
+              <select id="regEvent" required>
+                <option value="" disabled selected>— Choose an event —</option>
+                <option value="Coding Contest" data-fee="100">Coding Contest – ₹100</option>
+                <option value="Hackathon" data-fee="200">Hackathon – ₹200</option>
+                <option value="Robotics Challenge" data-fee="150">Robotics Challenge – ₹150</option>
+                <option value="UI/UX Design" data-fee="80">UI/UX Design – ₹80</option>
+              </select>
+            </div>
+
+            <!-- Dynamic Fee Display -->
+            <div class="fee-display" id="feeDisplay" style="display:none;">
+              <span class="fee-label">Registration Fee</span>
+              <span class="fee-amount" id="feeAmount">₹0</span>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full" id="registerBtn">
+              <span class="btn-text">⚡ Register & Pay</span>
+              <span class="btn-magic">✦ Mischief Managed! ✦</span>
+            </button>
+          </form>
+
+          <!-- Messages -->
+          <div class="reg-message reg-message--success" id="regSuccess">
+            <span class="reg-msg-icon">✦</span>
+            <div>
+              <strong>Registration Successful!</strong>
+              <p>Your spot has been secured. Check your email for confirmation.</p>
+            </div>
+          </div>
+          <div class="reg-message reg-message--error" id="regError">
+            <span class="reg-msg-icon">⚠</span>
+            <div>
+              <strong>Payment Failed</strong>
+              <p id="regErrorMsg">Something went wrong. Please try again.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
     <!-- CONTACT -->
     <section id="contact" class="section">
       <div class="section-container">
@@ -943,24 +985,29 @@
       </div>
     </section>
 
-    
-      <!-- FOOTER -->
-      <footer class="footer">
-        <div class="footer-content">
-          <div class="footer-brand">
-            <span class="footer-logo">✦ Murious 20.0</span>
-            <p>The Interstellar Journey of Tech, Innovation &amp; Beyond</p>
-            <p style="font-size:0.75rem; color:rgba(156,163,175,0.4); margin-top:4px;">A <a href="https://jyc.co.in/"
-                target="_blank" style="color:var(--gold);">JYC</a> Technical Festival · JUIT Solan</p>
-          </div>
-          <div class="footer-links">
-            <a href="#home">Home</a><a href="#about">About</a><a href="#events">Events</a>
-            <a href="#register">Register</a><a href="#contact">Contact</a>
-            <a href="https://jyc.co.in/" target="_blank">Official Site ↗</a>
-          </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="footer-logo">✦ Murious 20.0</span>
+          <p>The Interstellar Journey of Tech, Innovation &amp; Beyond</p>
+          <p style="font-size:0.75rem; color:rgba(156,163,175,0.4); margin-top:4px;">A <a href="https://jyc.co.in/"
+              target="_blank" style="color:var(--gold);">JYC</a> Technical Festival · JUIT Solan</p>
         </div>
-      </footer>
+        <div class="footer-links">
+          <a href="#home">Home</a><a href="#about">About</a><a href="#events">Events</a>
+          <a href="#register">Register</a><a href="#contact">Contact</a>
+          <a href="https://jyc.co.in/" target="_blank">Official Site ↗</a>
+        </div>
+      </div>
+    </footer>
   </main>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <!-- Razorpay SDK -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script src="js/script.js"></script>
 </body>
 

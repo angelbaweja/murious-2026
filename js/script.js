@@ -1,7 +1,36 @@
 /* ═══════════════════════════════════════════════════════
    MURIOUS 2026 — Script v3
-   Magic Wand Cursor
+   Magic Wand Cursor + Registration System
    ═══════════════════════════════════════════════════════ */
+
+// ════════════════════════════════════════════════════
+// FIREBASE CONFIG — Replace with your real credentials
+// ════════════════════════════════════════════════════
+const firebaseConfig = {
+  apiKey: "AIzaSyDFt5T1GCewg1Ai5PF6l3YG8y26dIEZ7Ug",
+  authDomain: "techfest-registration-eace0.firebaseapp.com",
+  projectId: "techfest-registration-eace0",
+  storageBucket: "techfest-registration-eace0.firebasestorage.app",
+  messagingSenderId: "1094190297812",
+  appId: "1:1094190297812:web:007376a2e08b4ff7fb4141",
+  measurementId: "G-36RTV9Y354"
+};
+
+// Razorpay Key — Replace with your real key
+const RAZORPAY_KEY = "YOUR_RAZORPAY_KEY_ID";
+
+let db = null;
+
+function initFirebase() {
+  try {
+    if (typeof firebase !== 'undefined') {
+      firebase.initializeApp(firebaseConfig);
+      db = firebase.firestore();
+    }
+  } catch (e) {
+    console.warn('Firebase init error:', e);
+  }
+}
 
 (function () {
   'use strict';
@@ -318,36 +347,169 @@
   }
 
   // ════════════════════════════════════════════════════
-  // FORMS
+  // FORMS (Registration + Contact)
   // ════════════════════════════════════════════════════
   function initForms() {
+    // ── Registration Form ──
     const regForm = document.getElementById('registerForm');
-    if (regForm) {
-      regForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const btn = document.getElementById('registerBtn');
-        const inputs = regForm.querySelectorAll('input, select');
-        let valid = true;
-        inputs.forEach(inp => {
-          if (!inp.value.trim()) { inp.classList.add('invalid'); valid = false; }
-          else inp.classList.remove('invalid');
-        });
-        if (valid) {
-          btn.classList.add('submitted');
-          btn.disabled = true;
-          // Sparkle on button
-          const rect = btn.getBoundingClientRect();
-          const container = document.getElementById('sparkleContainer');
-          spawnSparkles(rect.left + rect.width / 2, rect.top + rect.height / 2, container);
-          setTimeout(() => {
-            btn.classList.remove('submitted');
-            btn.disabled = false;
-            regForm.reset();
-          }, 3000);
+    const regEvent = document.getElementById('regEvent');
+    const feeDisplay = document.getElementById('feeDisplay');
+    const feeAmount = document.getElementById('feeAmount');
+    const regLoading = document.getElementById('regLoading');
+    const regSuccess = document.getElementById('regSuccess');
+    const regError = document.getElementById('regError');
+    const regErrorMsg = document.getElementById('regErrorMsg');
+    const registerBtn = document.getElementById('registerBtn');
+
+    // Dynamic fee display on event change
+    if (regEvent) {
+      regEvent.addEventListener('change', function () {
+        const sel = this.options[this.selectedIndex];
+        const fee = sel.getAttribute('data-fee');
+        if (fee) {
+          feeAmount.textContent = '₹' + fee;
+          feeDisplay.style.display = 'flex';
+          feeDisplay.style.animation = 'none';
+          feeDisplay.offsetHeight;
+          feeDisplay.style.animation = 'feeSlideIn 0.4s ease forwards';
+        } else {
+          feeDisplay.style.display = 'none';
         }
       });
     }
 
+    // Registration form submit
+    if (regForm) {
+      regForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        hideMessages();
+
+        const name = document.getElementById('regName').value.trim();
+        const email = document.getElementById('regEmail').value.trim();
+        const phone = document.getElementById('regPhone').value.trim();
+        const college = document.getElementById('regCollege').value.trim();
+        const eventSel = regEvent ? regEvent.options[regEvent.selectedIndex] : null;
+        const eventName = regEvent ? regEvent.value : '';
+        const eventFee = eventSel ? parseInt(eventSel.getAttribute('data-fee')) : 0;
+
+        // Validate fields
+        let valid = true;
+        const fields = regForm.querySelectorAll('input, select');
+        fields.forEach(inp => {
+          if (!inp.value || !inp.value.trim()) { inp.classList.add('invalid'); valid = false; }
+          else inp.classList.remove('invalid');
+        });
+
+        // Email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (email && !emailRegex.test(email)) {
+          document.getElementById('regEmail').classList.add('invalid');
+          showError('Please enter a valid email address.');
+          return;
+        }
+
+        // Phone length
+        if (phone && !/^\d{10}$/.test(phone)) {
+          document.getElementById('regPhone').classList.add('invalid');
+          showError('Phone number must be exactly 10 digits.');
+          return;
+        }
+
+        if (!valid || !eventName || eventFee <= 0) {
+          showError('Please fill in all fields and select an event.');
+          return;
+        }
+
+        // Check duplicate registration
+        if (db) {
+          try {
+            showLoading(true);
+            const snapshot = await db.collection('registrations')
+              .where('email', '==', email)
+              .where('event', '==', eventName)
+              .get();
+            if (!snapshot.empty) {
+              showLoading(false);
+              showError('You have already registered for this event with this email.');
+              return;
+            }
+          } catch (err) {
+            console.error('Duplicate check error:', err);
+            showLoading(false);
+            showError('Could not verify registration. Please try again.');
+            return;
+          }
+        }
+
+        // Open Razorpay
+        showLoading(true);
+        const options = {
+          key: RAZORPAY_KEY,
+          amount: eventFee * 100,
+          currency: "INR",
+          name: "Murious 20.0",
+          description: eventName + " Registration",
+          handler: async function (response) {
+            const paymentId = response.razorpay_payment_id;
+            if (db) {
+              try {
+                await db.collection('registrations').add({
+                  name: name,
+                  email: email,
+                  phone: phone,
+                  college: college,
+                  event: eventName,
+                  fee: eventFee,
+                  paymentId: paymentId,
+                  paymentStatus: "Success",
+                  timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
+              } catch (err) {
+                console.error('Firestore save error:', err);
+              }
+            }
+            showLoading(false);
+            regForm.reset();
+            feeDisplay.style.display = 'none';
+            registerBtn.classList.add('submitted');
+            const rect = registerBtn.getBoundingClientRect();
+            const container = document.getElementById('sparkleContainer');
+            spawnSparkles(rect.left + rect.width / 2, rect.top + rect.height / 2, container);
+            showSuccess();
+            setTimeout(() => { registerBtn.classList.remove('submitted'); }, 3000);
+          },
+          modal: {
+            ondismiss: function () {
+              showLoading(false);
+              showError('Payment was cancelled. Registration not completed.');
+            }
+          },
+          prefill: {
+            name: name,
+            email: email,
+            contact: phone
+          },
+          theme: {
+            color: "#d4a853"
+          }
+        };
+
+        try {
+          const rzp = new Razorpay(options);
+          rzp.on('payment.failed', function (resp) {
+            showLoading(false);
+            showError('Payment failed: ' + (resp.error.description || 'Unknown error.'));
+          });
+          rzp.open();
+        } catch (err) {
+          showLoading(false);
+          showError('Could not open payment gateway. Please try again.');
+          console.error('Razorpay error:', err);
+        }
+      });
+    }
+
+    // ── Contact Form ──
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
       contactForm.addEventListener('submit', (e) => {
@@ -371,10 +533,34 @@
       });
     }
 
+    // Clear invalid on input
     document.querySelectorAll('.form-group input, .form-group select, .form-group textarea')
       .forEach(inp => {
         inp.addEventListener('input', () => inp.classList.remove('invalid'));
       });
+
+    // Helper functions
+    function showLoading(show) {
+      if (regLoading) regLoading.classList.toggle('active', show);
+    }
+
+    function hideMessages() {
+      if (regSuccess) regSuccess.classList.remove('active');
+      if (regError) regError.classList.remove('active');
+    }
+
+    function showSuccess() {
+      hideMessages();
+      if (regSuccess) regSuccess.classList.add('active');
+      setTimeout(() => { if (regSuccess) regSuccess.classList.remove('active'); }, 8000);
+    }
+
+    function showError(msg) {
+      hideMessages();
+      if (regErrorMsg) regErrorMsg.textContent = msg;
+      if (regError) regError.classList.add('active');
+      setTimeout(() => { if (regError) regError.classList.remove('active'); }, 8000);
+    }
   }
 
   // ════════════════════════════════════════════════════
@@ -785,6 +971,7 @@ card.style.zIndex = slot.z;
     initNavbar();
     initReveal();
     initScheduleTabs();
+    initFirebase();
     initForms();
     initSmoothScroll();
     initEventGallery();
@@ -822,3 +1009,39 @@ container.appendChild(p);
 
 })();
 
+// ════════════════════════════════════════════════════
+// ADMIN: EXPORT REGISTRATIONS TO CSV
+// Call exportRegistrationsToCSV() from browser console
+// ════════════════════════════════════════════════════
+async function exportRegistrationsToCSV() {
+  if (!db) {
+    alert('Firebase is not initialized. Please check your config.');
+    return;
+  }
+  try {
+    const snapshot = await db.collection('registrations').orderBy('timestamp', 'desc').get();
+    if (snapshot.empty) {
+      alert('No registrations found.');
+      return;
+    }
+    const rows = [['Name', 'Email', 'Phone', 'College', 'Event', 'Fee', 'Payment ID', 'Timestamp']];
+    snapshot.forEach(doc => {
+      const d = doc.data();
+      const ts = d.timestamp ? d.timestamp.toDate().toISOString() : '';
+      rows.push([d.name, d.email, d.phone, d.college, d.event, d.fee, d.paymentId, ts]);
+    });
+    const csv = rows.map(r => r.map(c => '"' + String(c).replace(/"/g, '""') + '"').join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'murious_registrations.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  } catch (err) {
+    console.error('Export error:', err);
+    alert('Failed to export registrations: ' + err.message);
+  }
+}
