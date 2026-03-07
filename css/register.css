@@ -377,10 +377,15 @@ body {
     box-shadow: 0 0 20px rgba(212, 168, 83, 0.12), inset 0 0 20px rgba(212, 168, 83, 0.04);
 }
 
-.event-icon {
+/* .event-icon {
     font-size: 1.8rem;
-    line-height: 1;
+    line-height: 1; */
+   .event-icon img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
 }
+
 
 .event-name {
     font-family: 'Cinzel', serif;
