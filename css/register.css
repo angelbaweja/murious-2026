@@ -693,4 +693,8 @@ body {
         left: 12px;
         max-width: none;
     }
+    .upload-hint{
+    font-size:12px;
+    opacity:0.7;
+}
 }

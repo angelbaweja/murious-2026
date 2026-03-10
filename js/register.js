@@ -17,6 +17,7 @@ const firebaseConfig = {
 const RAZORPAY_KEY = "rzp_live_SODKZII24hVdSO";
 
 let db = null;
+let storage = null;
 
 // ── Initialize Firebase ──
 function initFirebase() {
@@ -24,6 +25,7 @@ function initFirebase() {
         if (typeof firebase !== 'undefined') {
             firebase.initializeApp(firebaseConfig);
             db = firebase.firestore();
+storage = firebase.storage();
             console.log('✦ Firebase initialized');
         }
     } catch (e) {
@@ -156,6 +158,7 @@ if (regForm) {
         const email = document.getElementById('regEmail').value.trim();
         const phone = document.getElementById('regPhone').value.trim();
         const college = document.getElementById('regCollege').value.trim();
+        const screenshotFile = document.getElementById('paymentSS').files[0];
         const { totalFee, count, events: selectedEvents } = updateFeeDisplay();
 
         // Validate text fields
@@ -185,11 +188,18 @@ if (regForm) {
         }
 
         // Check at least one event selected
-        if (count === 0) {
-            if (eventGrid) eventGrid.classList.add('invalid');
-            showErrorMsg('Please select at least one event.');
-            return;
-        }
+        // Check at least one event selected
+if (count === 0) {
+    if (eventGrid) eventGrid.classList.add('invalid');
+    showErrorMsg('Please select at least one event.');
+    return;
+}
+
+// Validate payment screenshot
+if (!screenshotFile) {
+    showErrorMsg('Please upload your payment screenshot.');
+    return;
+}
 
         if (!valid) {
             showErrorMsg('Please fill in all required fields.');
@@ -240,30 +250,54 @@ if (regForm) {
                 ? selectedEvents[0].name + " Registration"
                 : count + " Events Registration",
             handler: async function (response) {
-                // Payment successful — save each event as a separate registration
-                try {
-                    if (db) {
-                        const batch = db.batch();
-                        for (const ev of selectedEvents) {
-                            const docRef = db.collection('registrations').doc();
-                            batch.set(docRef, {
-                                name: name,
-                                email: email,
-                                phone: phone,
-                                college: college,
-                                event: ev.name,
-                                fee: ev.fee,
-                                totalPaid: totalFee,
-                                eventsInOrder: eventNames,
-                                paymentId: response.razorpay_payment_id,
-                                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                            });
-                        }
-                        await batch.commit();
-                    }
-                } catch (err) {
-                    console.error('Firestore save error:', err);
-                }
+
+    let screenshotURL = "";
+
+    try {
+
+        // Upload screenshot to Firebase Storage
+        if (screenshotFile && storage) {
+
+            const fileName = Date.now() + "_" + screenshotFile.name;
+
+            const storageRef = storage.ref("paymentScreenshots/" + fileName);
+
+            await storageRef.put(screenshotFile);
+
+            screenshotURL = await storageRef.getDownloadURL();
+        }
+
+        // Save registrations
+        if (db) {
+
+            const batch = db.batch();
+
+            for (const ev of selectedEvents) {
+
+                const docRef = db.collection("registrations").doc();
+
+                batch.set(docRef, {
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    college: college,
+                    event: ev.name,
+                    fee: ev.fee,
+                    totalPaid: totalFee,
+                    eventsInOrder: eventNames,
+                    paymentId: response.razorpay_payment_id,
+                    screenshot: screenshotURL,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+            }
+
+            await batch.commit();
+        }
+
+    } catch (err) {
+        console.error("Firestore save error:", err);
+    }
                 showLoading(false);
                 regForm.reset();
                 eventCheckboxes.forEach(cb => cb.checked = false);

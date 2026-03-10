@@ -181,7 +181,23 @@
                     </div>
                     <span class="fee-amount" id="feeAmount">₹0</span>
                 </div>
+                <!-- Transaction Screenshot Upload -->
+<div class="form-group">
+    <label for="paymentSS">Upload Payment Screenshot</label>
 
+    <input type="file"
+           id="paymentSS"
+           name="paymentScreenshot"
+           accept="image/png, image/jpeg, image/jpg"
+           required>
+
+    <small class="upload-hint">
+        Upload the screenshot of your transaction (PNG/JPG)
+    </small>
+
+    <img id="previewImage"
+         style="display:none; max-width:180px; margin-top:10px; border-radius:8px;">
+</div>
                 <button type="submit" class="reg-submit" id="registerBtn">
                     <span class="btn-text">⚡ Register & Pay</span>
                     <span class="btn-magic">✦ Mischief Managed! ✦</span>
@@ -216,6 +232,7 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
     <!-- Razorpay SDK -->
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <!-- Registration Script -->
